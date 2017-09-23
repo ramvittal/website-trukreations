@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+
+
+ <!-- Bootstrap CSS -->
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <link rel="stylesheet"  type="text/css" href="css/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>TruKreations</title>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
+        
+        <script src="js/simpleCart.js"></script>
+        <script>
+            simpleCart({
+                checkout: { 
+                    type: "PayPal" , 
+                    email: "trukreations@gmail.com" 
+                }
+            });	
+        </script>
+        
+        <script src="js/aws_custom.js"></script>
+         
+    
+    </head>
+     
+        <body>
+        
+        
+        <nav class="navbar navbar-expand-md fixed-top bg-light">
+          <a class="navbar-brand" href="#">
+             <img src="img/logo.png" width="250" height="80" alt="">
+        </a>
+          <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item table-active">
+                        <a class="nav-link" href="#cover">Home</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="sarees.html">Sarees</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="necklaces.html">Necklaces</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="#testimonials">Testimonials</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="#contact">Contact us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                     <span class="simpleCart_quantity" style="color:red"></span> <span style="color:red">items - </span><span style="color:red" class="simpleCart_total"></span>
+                    </a>
+                 </li>
+
+                 <li class="nav-item">
+                     <a style="color:red" href="javascript:;" class="simpleCart_empty nav-link">Empty Cart</a>
+                 </li>
+
+                <li class="nav-item" >
+                    <a href="javascript:;" class="simpleCart_checkout nav-link" style="color:red" >Checkout</a>
+
+                </li>
+            </ul>
+
+          </div>
+        </nav>
+        
+         
+         
+         <section id="admin">
+             <div class="section-admin">
+                 <div class="container">
+                    <div class="row">
+                         <div class="col-sm-12">
+                             <h2>Upload Photo File</h2>
+                             
+                                <form class="form-horizontal" action="javascript:addPhoto()" method="post">
+                                
+                                <div class="form-group row">
+                                    <label for="id_category" class="col-sm-2 control-label">Category</label>
+                                     <div class="col-sm-10">
+                                        <select class="form-control" id="id_category">
+                                            <option>sarees</option>
+                                            <option>necklaces</option>
+                                            <option>earrings</option>
+                                            <option>featured-sarees</option>
+                                            <option>featured-necklaces</option>
+                                            <option>featured-earrings</option>
+
+                                          </select>
+                                     </div>
+                                 </div>
+                                 
+                                 <div class="form-group row">
+                                    <label for="id_itemfile" class="col-sm-2 control-label">File</label> 
+                                     <div class="col-sm-10">
+                                          <input type="file" class="form-control" id="id_itemfile" onchange="readURL(this);">
+                                             <hr>
+                                              <img id="id_itemfile_img" src="#" alt="item image" />
+                                     </div>
+                                 </div>
+                                 
+                                 <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input id="submit" name="submit" type="submit"  value="Submit" class="btn btn-success">
+                                        
+                                    </div>
+						         </div>
+                                
+                                 
+                             </form>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-12">
+                             <h2>Upload Photo Tags</h2>
+                             
+                                <form class="form-horizontal" action="javascript:createS3ObjectTags()" method="post">
+                                     <input type="hidden" class="form-control" id="id_fname" name="fname"  value="">
+                                     
+
+                                     <div class="form-group row">
+                                         <label for="itemid" class="col-sm-2 control-label">Item Id</label> 
+                                         <div class="col-sm-10">
+                                             <input type="text" class="form-control" id="id_itemid" name="itemid" placeholder="100-001" value="">
+                                         </div>
+                                     </div>
+                                    <div class="form-group row">
+                                         <label for="itemtitle" class="col-sm-2 control-label">Item Title</label> 
+                                         <div class="col-sm-10">
+                                             <input type="text" class="form-control" id="id_itemtitle" name="itemtitle" placeholder="Pearl Necklace" value="">
+                                         </div>
+                                     </div>
+                                     <div class="form-group row">
+                                         <label for="itemprice" class="col-sm-2 control-label">Item Price</label> 
+                                         <div class="col-sm-10">
+                                             <input type="text" class="form-control" id="id_itemprice" name="itemprice" placeholder="50.00" value="">
+                                         </div>
+                                     </div>
+                                     <div class="form-group row">
+                                         <label for="itemshortdesc" class="col-sm-2 control-label">Item Short Desc</label> 
+                                         <div class="col-sm-10">
+                                             <input type="text" class="form-control" id="id_itemshortdesc" name="itemtitle" placeholder="Fresh water pearls" value="">
+                                         </div>
+                                     </div>
+
+
+
+                                     <div class="form-group row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <input id="submit" name="submit" type="submit" value="Submit" class="btn btn-success">
+
+                                        </div>
+                                     </div>
+                                
+                                 
+                             </form>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </section>
+         
+         <footer class="footer">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-sm-4">
+                         <p>Copyright &copy; TruKreations</p>
+                     </div>
+                     <div class="col-sm-4">
+                         <ul class="social-links">
+                            <li><a href="https://www.facebook.com/TruKreations/"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://plus.google.com/u/1/115465974031402951695"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.facebook.com/TruKreations/"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a></li>
+                         </ul>
+                     </div>
+                     <div class="col-sm-4 scroll-to-top-button">
+                         <a href="#cover"><i class="fa fa-3x fa-chevron-circle-up"></i></a>
+                     </div>
+                 </div>
+             </div>
+         </footer>
+         
+         
+         
+         
+      
+         
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="js/vendor/popper.min.js"></script>
+        <script src="js/vendor/holder.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>   
+      
+     </body>
+     
+</html>

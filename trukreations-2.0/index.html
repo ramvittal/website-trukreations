@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+
+        <!-- Bootstrap CSS -->
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <link rel="stylesheet"  type="text/css" href="css/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>TruKreations</title>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
+        
+        <script src="js/simpleCart.js"></script>
+        <script>
+            simpleCart({
+                checkout: { 
+                    type: "PayPal" , 
+                    email: "trukreations@gmail.com" 
+                }
+            });	
+        </script>
+        
+        <script src="js/aws_custom.js"></script>
+        
+       
+    </head>
+     
+        <body>
+        
+       
+        
+        
+        <nav class="navbar navbar-expand-md fixed-top bg-light">
+          <a class="navbar-brand" href="#">
+             <img src="img/logo.png" width="250" height="80" alt="">
+        </a>
+          <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item table-active">
+                        <a class="nav-link" href="#cover">Home</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="sarees.html">Sarees</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="necklaces.html">Necklaces</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="#testimonials">Testimonials</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="#contact">Contact us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                     <span class="simpleCart_quantity" style="color:red"></span> <span style="color:red">items - </span><span style="color:red" class="simpleCart_total"></span>
+                    </a>
+                 </li>
+
+                 <li class="nav-item">
+                     <a style="color:red" href="javascript:;" class="simpleCart_empty nav-link">Empty Cart</a>
+                 </li>
+
+                <li class="nav-item" >
+                    <a href="javascript:;" class="simpleCart_checkout nav-link" style="color:red" >Checkout</a>
+
+                </li>
+            </ul>
+
+          </div>
+        </nav>
+        
+        
+         <section id="cover">
+             <div class="container">
+                 <div class="row">
+                    
+                     <div class="col-sm-12">
+                         <h1 class="moto">Welcome to Tru Kreations. Your destination for authentic handloom Sarees and handcrafted Jewelry</h1>
+                         <a href="#sarees"><i class="fa fa-arrow-down"></i></a>  
+                     </div> 
+                 </div> 
+             </div>
+        </section>
+        
+        
+         <section id="sarees">
+            
+            <div  class="section-sarees">
+                 <div class="container">
+                     <h2>Featured <a href="sarees.html"><span class="bold-green">Sarees</span></a></h2>
+                    <div class="row" id="replace-sarees">
+                        
+
+                    </div>
+                </div>
+            </div> 
+            <script type="text/javascript">
+                viewAlbum('featured-sarees','replace-sarees');
+                viewTags('featured-sarees');
+             </script>
+         </section>
+        
+        
+        <section id="necklaces">
+                <div  class="section-necklaces">
+                    <div class="container">
+                        <h2>Featured <a href="necklaces.html"><span class="bold-green">Necklaces</span></a></h2>
+                        <div class="row" id="replace-necklaces">
+
+
+                        </div>
+                    </div>
+
+                </div> 
+                <script type="text/javascript">
+                    viewAlbum('featured-necklaces','replace-necklaces');
+                    viewTags('featured-necklaces');
+                 </script>
+
+        </section>
+        
+            
+
+        
+         
+         
+         <section id="testimonials">
+             <div class="section-testimonials">
+                 <div class="container">
+                    <h2>Clients' <span class="bold-green">tesimonials</span></h2>
+                    <p class="lead under-heading">Read what others say about our products and services</p>
+                     <div class="row">
+                         <div class="col-sm-4">
+                             <div class="row testimonial">
+                                 <div class="col-sm-4">
+                                     <img src="img/indrani.jpg" class="mario-img">
+                                 </div>
+                                 <div class="col-sm-8">
+                                    <blockquote>
+                                        <i class="fa fa-quote-right"></i>Love your work!. You are very passoniate about your work and always see that in the quality of your products. I loved the sarees and necklaces I bought from you and wear them for several occassions.  I will come back and buy more when I have some money!
+                                        <hr class="testimonials-hr">
+                                        <cite>&#8212; Indrani, Friend and Customer</cite>
+                                    </blockquote> 
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-sm-4">
+                             <div class="row testimonial">
+                                 <div class="col-sm-4">
+                                     <img src="img/umad.jpg" class="monice-img">
+                                 </div>
+                                 <div class="col-sm-8">
+                                    <blockquote>
+                                        <i class="fa fa-quote-right"></i>I am facinated by your work! You are very talented to make great products. You take personal care on every pieces you create. Not only I continue to buy from you, I am also continuing to recommend you to my friends.
+                                        <hr class="testimonials-hr">
+                                        <cite>&#8212; Uma D, Friend and Customer</cite>
+                                    </blockquote> 
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-sm-4">
+                             <div class="row testimonial">
+                                 <div class="col-sm-4">
+                                     <img src="img/meg.jpg" class="monka-img">
+                                 </div>
+                                 <div class="col-sm-8">
+                                    <blockquote>
+                                        <i class="fa fa-quote-right"></i>I wonder how you create such great products. You spend a lot of time in making each product with great care. I have never seen any quality problems with your product. I love your customer service!
+                                        <hr class="testimonials-hr">
+                                        <cite>&#8212; Meg, Friend and Customer</cite>
+                                    </blockquote> 
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                       
+                 </div>
+             </div>
+         </section>
+         
+         
+         <section id="contact">
+             <div class="section-contact">
+                 <div class="container">
+                     <div class="row">
+                         <div class="col-md-8 offset-md-2">
+                             <h2>Leave us a <span class="bold-green">message</span>!</h2>
+                             
+                                <form class="form-horizontal" role="form" method="post" action="https://formspree.io/trukreations@gmail.com" >
+                                 <div class="form-group">
+                                     <label for="name" class="col-sm-2 control-label">Name</label> 
+                                     <div class="col-sm-10">
+                                         <input type="text" class="form-control" id="id_name" name="name" placeholder="First & Last Name" value="">
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="email" class="col-sm-2 control-label">Email</label> 
+                                     <div class="col-sm-10">
+                                         <input type="email" class="form-control" id="id_email" name="email" placeholder="example@domain.com" value="">
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="message" class="col-sm-2 control-label">Phone</label> 
+                                     <div class="col-sm-10">
+                                         <input type="text" class="form-control" id="id_phone" name="phone" placeholder="(000)000-0000" value="">
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="message" class="col-sm-2 control-label">Message</label> 
+                                     <div class="col-sm-10">
+                                         <textarea class="form-control" id="id_comment" row="4" name="message"></textarea>
+                                     </div>
+                                 </div>
+                                 
+                                 <div class="form-group">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <input id="submit" name="submit" type="submit" value="Send" class="btn btn-success">
+                                        
+                                    </div>
+						         </div>
+                                
+                                 
+                             </form>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </section>
+         
+         <footer class="footer">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-sm-4">
+                         <p>Copyright &copy; TruKreations</p>
+                     </div>
+                     <div class="col-sm-4">
+                         <ul class="social-links">
+                            <li><a href="https://www.facebook.com/TruKreations/"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://plus.google.com/u/1/115465974031402951695"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.facebook.com/TruKreations/"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a></li>
+                         </ul>
+                     </div>
+                     <div class="col-sm-4 scroll-to-top-button">
+                         <a href="#cover"><i class="fa fa-3x fa-chevron-circle-up"></i></a>
+                     </div>
+                 </div>
+             </div>
+         </footer>
+         
+         
+         
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="js/vendor/popper.min.js"></script>
+        <script src="js/vendor/holder.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+         
+     </body>
+     
+</html>

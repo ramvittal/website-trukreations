@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+
+        <!-- Bootstrap CSS -->
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <link rel="stylesheet"  type="text/css" href="css/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>TruKreations</title>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
+        
+        <script src="js/simpleCart.js"></script>
+        <script>
+            simpleCart({
+                checkout: { 
+                    type: "PayPal" , 
+                    email: "trukreations@gmail.com" 
+                }
+            });	
+        </script>
+        
+        <script src="js/aws_custom.js"></script>
+        
+       
+    </head>
+     
+        <body onload="createS3ObjectTags()">
+        
+        <nav class="navbar navbar-dark bg-inverse">
+            <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expaded="false" aria-label="Toggle navigation">&#9776;</button>
+            
+            <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+                <a class="navbar-brand" href="#cover">TRU<span class="bold-blue">KREATIONS</span></a>
+                
+                <br>
+                <br>
+                
+                <ul class="nav navbar-nav pull-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="sarees.html">Sarees</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="necklaces.html">Necklaces</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="index.html#earrnings">Earings</a>
+                    </li>
+                   
+                    <li class="nav-item">
+                         <a class="nav-link" href="index.html#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="index.html#contact">Contact us</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="">
+                         <span class="simpleCart_quantity" style="color:red"></span> <span style="color:red">items - </span><span style="color:red" class="simpleCart_total"></span>
+                        </a>
+                     </li>
+                     
+                     <li class="nav-item">
+                         <a style="color:red" href="javascript:;" class="simpleCart_empty nav-link">Empty Cart</a>
+                     </li>
+                     
+                    <li class="nav-item" >
+                        <a href="javascript:;" class="simpleCart_checkout nav-link" style="color:red" >Checkout</a>
+
+                    </li>
+                     
+                </ul>
+            </div>     
+        </nav>
+        
+       
+        
+         
+         <section id="sarees">
+            
+            <div  class="section-sarees">
+                 <div class="container">
+                    <h2><span class="bold-green">Sarees</span></h2>
+                    <div class="row">
+                        <div id="replace-sarees">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div> 
+            <script type="text/javascript">
+                viewAlbum('sarees','replace-sarees');
+                viewTags('sarees');
+             </script>
+         </section>
+
+        
+         
+         
+        
+         
+         <footer class="footer">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-sm-4">
+                         <p>Copyright &copy; TruKreations</p>
+                     </div>
+                     <div class="col-sm-4">
+                         <ul class="social-links">
+                            <li><a href="https://www.facebook.com/TruKreations/"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://plus.google.com/u/1/115465974031402951695"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.facebook.com/TruKreations/"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a></li>
+                         </ul>
+                     </div>
+                     <div class="col-sm-4 scroll-to-top-button">
+                         <a href="#cover"><i class="fa fa-3x fa-chevron-circle-up"></i></a>
+                     </div>
+                 </div>
+             </div>
+         </footer>
+         
+         
+         
+         
+         
+         
+      
+         
+         <script src="js/jquery-3.0.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+         <script src="js/jquery.waypoints.min.js"></script>
+         <script src="js/main.js"></script>
+     </body>
+     
+</html>
