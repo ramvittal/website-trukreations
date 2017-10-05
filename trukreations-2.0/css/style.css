@@ -296,11 +296,22 @@ body {
     padding-top: 3rem;
 }
 
+.section-featured-sarees {
+    padding-top: 3rem;
+}
+
 .section-sarees {
+    background-color: white;
     padding-top: 3rem;
 }
 
 .section-necklaces {
+    background-color: white;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.section-item {
     background-color: white;
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -401,6 +412,8 @@ blockquote {
 
 .section-admin {
     font-family: sans-serif;
+    background-color: white;
+    padding: 5rem 0;
 }
 
 .section-contact {
@@ -420,7 +433,7 @@ blockquote {
 }
 
 .form-horizontal {
-    padding-top: 5rem;
+    padding-top: 1rem;
 }
 
 textarea:focus, input:focus {

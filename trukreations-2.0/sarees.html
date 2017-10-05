@@ -24,7 +24,7 @@
             });	
         </script>
         
-        <script src="js/aws_custom.js"></script>
+        <script src="js/aws_services.js"></script>
         
        
     </head>
@@ -44,8 +44,13 @@
                <li class="nav-item">
                         <a class="nav-link" href="index.html">Home</a>
                 </li>
-                <li class="nav-item table-active">
-                     <a class="nav-link" href="sarees.html">Sarees</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sarees</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown10">
+                    <a class="dropdown-item nav-link" href="sarees.html?category=silk">Silk Sarees</a>
+                    <a class="dropdown-item nav-link" href="sarees.html?category=art-silk">Art Silk Sarees</a>
+                    <a class="dropdown-item nav-link" href="sarees.html?category=cotton">Cotton Sarees</a>
+                  </div>
                 </li>
                 <li class="nav-item">
                      <a class="nav-link" href="necklaces.html">Necklaces</a>
@@ -84,16 +89,25 @@
             
             <div  class="section-sarees">
                  <div class="container">
-                    <h2><span class="bold-green">Sarees</span></h2>
+                    <h2><span class="bold-green" id="id_saree_page_title">Sarees</span></h2>
                     <div class="row" id="replace-sarees">
                        
                     </div>
                 </div>
             </div> 
             <script type="text/javascript">
-                viewAlbum('sarees','replace-sarees');
-                viewTags('sarees');
+                
+                
+                var queryString = decodeURIComponent(window.location.search);
+                queryString = queryString.substring(1);
+                var qCatg = queryString.substring(queryString.lastIndexOf("=")+1);
+                var catg = 'sarees/' + qCatg;
+                
+                queryInventoryItems(catg,"replace-sarees");
+                replaceSareePageTitle(qCatg);
+                
              </script>
+             
          </section>
 
         

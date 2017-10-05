@@ -31,11 +31,49 @@
         });
             
         var cloudFrontDomain = "https://d2yi5iip5jqkyz.cloudfront.net";
+
+        //var dynamodb = new AWS.DynamoDB();
+        var docClient = new AWS.DynamoDB.DocumentClient();
         
         //alert("test");
         
        
       // listAlbums();
+
+
+//dynamo db functions
+
+
+function addInventoryItem(item) {
+    
+    
+    var params = {
+                    TableName: "tru_inventory_item",
+                    Item: {
+                        "item_id": item.id,
+                        "item_category": item.category,
+                        "item_image_url": item.image_url,
+                        "title": item.title,
+                        "short_desc": item.shortDesc,
+                        "long_desc": item.longDesc,
+                        "price": item.price,
+                        "quantity_on_hand":item.quantityOnHand,
+                        "quantity_on_order":item.quantityOnOrder,
+                        "similar_items": item.similarItems,
+                    }
+                };
+    
+     docClient.put(params, function (err, data) {
+                    if (err) {
+                        alert("Add item failed: " + JSON.stringify(err));
+                    } 
+                    else {
+                        console.log("item added" +JSON.stringify(data));
+                    }
+         
+                });
+    
+}
 
         
        
@@ -43,9 +81,10 @@
         
         function viewAlbum(albumName, replaceElementId) {
             //alert(albumName);
-              var albumPhotosKey = encodeURIComponent(albumName) + '/';
+             //var albumPhotosKey = encodeURIComponent(albumName) + '/';
+           var albumPhotosKey = albumName + '/'
            // alert("albumname:" +albumName);
-            //alert("albumphotokey:" +albumPhotosKey);
+          // alert("albumphotokey:" +albumPhotosKey);
               s3.listObjects({Prefix: albumPhotosKey}, function(err, data) {
                 if (err) {
                   return alert('There was an error viewing your album: ' + err.message);
@@ -61,15 +100,15 @@
                     
                   var photoKey = photo.Key;
                     
-                    
-                if(photoKey == "featured-earrings/" || photoKey == "featured-sarees/" || photoKey == "necklaces/" || photoKey == "sarees/" || photoKey == "earrings/") {
+               // alert('photoKey:' +photoKey);
+                if(photoKey == "featured-earrings/" || photoKey == "featured-sarees/" || photoKey == "necklaces/" || photoKey == albumPhotosKey  || photoKey == "earrings/") {
                         //alert('photoKey:' +photoKey);
                 }
                else {
                     
                     
                   var photoUrl = bucketUrl + encodeURIComponent(photoKey);
-                   //alert('photoUrl:' +photoUrl);
+                  // alert('photoUrl:' +photoUrl);
                     
                     var params = {
                         Bucket: 'trukreations.com',
@@ -99,7 +138,7 @@
                             '<div class="card-block">',
                                 '<h4 id="' +photoKey + '-title"' + 'class="card-title">' + 'card-title' + '</h4>',
                             '</div>',
-                            '<img src="' + photoUrl + '">',
+                            '<img src="' + photoUrl + '" onclick="displayItemDetail(this)">',
                             '<div class="card-block">',
                                 '<p id="' +photoKey + '-desc"' + 'class="card-text">desc</p>',
                                 '<p id="' +photoKey + '-price"' + 'class="card-text">$</p>',
@@ -134,7 +173,8 @@
             
     function viewTags(albumName) {
             //alert(albumName);
-              var albumPhotosKey = encodeURIComponent(albumName) + '/';
+             // var albumPhotosKey = encodeURIComponent(albumName) + '/';
+          var albumPhotosKey = albumName + '/'
            // alert("albumname:" +albumName);
             //alert("albumphotokey:" +albumPhotosKey);
               s3.listObjects({Prefix: albumPhotosKey}, function(err, data) {
@@ -151,7 +191,7 @@
                     
                   var photoKey = photo.Key;
                     
-                    if(photoKey == "featured-earrings/" || photoKey == "featured-sarees/" || photoKey == "necklaces/" || photoKey == "sarees/" || photoKey == "earrings/") {
+                    if(photoKey == "featured-earrings/" || photoKey == "featured-sarees/" || photoKey == "necklaces/" || photoKey == albumPhotosKey || photoKey == "earrings/") {
                         //alert('photoKey:' +photoKey);
                     }   
                     else {
@@ -170,12 +210,12 @@
                                var price = obj.TagSet[1].Value;
                                var desc = obj.TagSet[2].Value;
                                var title = obj.TagSet[3].Value;
-
-
+                               
+                              // alert(photoKey+"-title");
 
                                document.getElementById(photoKey+"-title").innerHTML = '<h4 class="card-title item_name">' + title + '</h4>';
                                document.getElementById(photoKey+"-desc").innerHTML = '<p class="card-text">' + desc + '</p>',
-                               document.getElementById(photoKey+"-price").innerHTML = '<p class="card-link item_price"><span style="color:red"> $' + price +   '</span>&nbsp;&nbsp;<button class="btn btn-success item_add">Add to Cart</button></p>';
+                                document.getElementById(photoKey+"-price").innerHTML = '<p class="card-link item_price"><span style="color:red"> $' + price +   '</span>&nbsp;&nbsp;<button class="btn btn-success item_add">Add to Cart</button></p>';
                            }
 
                          });
@@ -188,14 +228,35 @@
             });
         }
 
+
+function replaceSareePageTitle(category) {
+    if(category == 'silk') 
+        document.getElementById("id_saree_page_title").innerHTML = 'Silk Sarees';
+    else if(category == 'art-silk') 
+        document.getElementById("id_saree_page_title").innerHTML = 'Art Silk Sarees';
+    else if(category == 'cotton') 
+        document.getElementById("id_saree_page_title").innerHTML = 'Cotton Sarees';
+    
+    
+}
+
+
+function displayItemDetail(img) {
+                //alert(img.src);
+                window.location.href =  'itemDetail.html?imgSrc=' + img.src;
+
+            }
+
+
+
  function viewItemDetail() {
             
      
      
             var queryString = decodeURIComponent(window.location.search);
             queryString = queryString.substring(1);
-            var imgSrc =  queryString;
-           // alert('queryString:' +queryString);
+            var imgSrc =  queryString.substring(queryString.lastIndexOf("=")+1);
+          // alert('imgsrc:' +imgSrc);
             var photoKey = queryString.substring(queryString.lastIndexOf("net/")+4);
         //    alert(photoKey);
                     
@@ -217,11 +278,13 @@
                    var price = obj.TagSet[1].Value;
                    var desc = obj.TagSet[2].Value;
                    var title = obj.TagSet[3].Value;
+                   var longDesc = obj.TagSet[4].Value;
+                   //alert(title);
 
 
-
+                   document.getElementById("id_itemDetailImg").src = imgSrc;
                    document.getElementById("id_itemDetailTitle").innerHTML = '<h2 class="card-title item_name">' + title + '</h2>';
-                   document.getElementById("id_itemDetailDesc").innerHTML = '<p class="card-text">' + desc + '</p>',
+                   document.getElementById("id_itemDetailDesc").innerHTML = '<p class="card-text">' + longDesc + '</p>',
                    document.getElementById("id_itemDetailPrice").innerHTML = '<p class="card-link item_price">Price: <span style="color:red"> $' + price + '</span></p>';
                }
 
@@ -248,6 +311,7 @@
                 var itemPrice = document.getElementById("id_itemprice").value;
                 var itemTitle = document.getElementById("id_itemtitle").value;
                 var itemShortDesc = document.getElementById("id_itemshortdesc").value;
+                var itemLongDesc = document.getElementById("id_itemlongdesc").value;
                 var key = category +'/' + fname;
                 
                // alert(itemId + itemPrice +key);
@@ -260,7 +324,11 @@
                       {
                      Key: "itemId", 
                      Value: itemId
-                    }, 
+                    },
+                        {
+                     Key: "price", 
+                     Value: itemPrice
+                    },
                        {
                      Key: "title", 
                      Value: itemTitle
@@ -268,11 +336,13 @@
                        {
                      Key: "shortDesc", 
                      Value: itemShortDesc
-                    },
-                      {
-                     Key: "price", 
-                     Value: itemPrice
+                    }, 
+                       {
+                     Key: "longDesc", 
+                     Value: itemShortDesc
                     }
+                    
+                       
                    ]
                   }
                  };
@@ -302,7 +372,7 @@
     
 
 
-        function addPhoto() {
+function addPhoto() {
             
             var e = document.getElementById("id_category");
             var albumName = e.options[e.selectedIndex].text;
@@ -314,7 +384,8 @@
           }
           var file = files[0];
           var fileName = file.name;
-          var albumPhotosKey = encodeURIComponent(albumName)+ '/';
+         // var albumPhotosKey = encodeURIComponent(albumName)+ '/';
+            var albumPhotosKey = albumName + '/';
             
           document.getElementById('id_fname').value = fileName;
            
@@ -331,7 +402,7 @@
               console.log('There was an error uploading your photo: ', err.message);
             }
             console.log("upload successful");
-            alert("Upload successful");
+            //alert("Upload successful");
           });
            // alert('photoKey-after:' +photoKey);
         }

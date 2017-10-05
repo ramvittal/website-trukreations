@@ -24,7 +24,7 @@
             });	
         </script>
         
-        <script src="js/aws_custom.js"></script>
+        <script src="js/aws_services.js"></script>
         
         <script>
  
@@ -51,12 +51,17 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
                <li class="nav-item">
-                        <a class="nav-link" href="#cover">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sarees</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown10">
+                    <a class="dropdown-item nav-link" href="sarees.html?category=silk">Silk Sarees</a>
+                    <a class="dropdown-item nav-link" href="sarees.html?category=art-silk">Art Silk Sarees</a>
+                    <a class="dropdown-item nav-link" href="sarees.html?category=cotton">Cotton Sarees</a>
+                  </div>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" href="sarees.html">Sarees</a>
-                </li>
-                <li class="nav-item table-active">
                      <a class="nav-link" href="necklaces.html">Necklaces</a>
                 </li>
                 <li class="nav-item">
@@ -88,32 +93,33 @@
          <hr>
        
          
-         <section id="necklaces">
+         <section id="item">
             
-            <div  class="section-necklaces">
+            <div  class="section-item">
                 <div class="container">
-                    <h2 id="id_itemDetailTitle"><span class="bold-green">Necklaces</span></h2>
+                    <h2 id="id_itemDetailTitle"><span class="bold-green">Item Title</span></h2>
+                   
                     <div class="row">
                       <div class="col-sm-6">
                           <div class="card">
                               <div class="card-block">
-                                  <h4 class="card-title">
-                                      Silk Kalamkari
-                                  </h4>
-                                  <img src="https://d2yi5iip5jqkyz.cloudfront.net/featured-sarees%2FIMG_6505.JPG">
+                                  <img id="id_itemDetailImg" src="">
                               </div>
                           </div>
                         </div>
                         
                         <div class="col-sm-6">
                           <div class="card">
-                              <div class="card-block">
+                              <div class="card-block simpleCart_shelfItem">
+                                   
                                     
-                                    <p id="id_itemDetailDesc" class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, asperiores, iure? Consequuntur quia nulla, veritatis perspiciatis possimus, soluta adipisci eum temporibus, totam recusandae quod repellendus iure! Dolores quos dolor, ipsam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dolor iste cumque suscipit dolores nesciunt delectus molestias aut veritatis porro, modi, asperiores alias optio? Dolorum, eaque, iure! Totam, tenetur quod. </p>
+                                    <p id="id_itemDetailDesc" class="card-text"> desc </p>
                                     
                                     <hr>
                                     
-                                    <p id="id_itemDetailPrice" class="card-text item_price">Price: <span style="color:red"> $125.00</span></p>
+                                    
+                                    
+                                    <p id="id_itemDetailPrice" class="card-text">Price: <span style="color:red">Contact Us</span></p>
                                     
                                     <hr>
                                 

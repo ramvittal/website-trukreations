@@ -24,7 +24,7 @@
             });	
         </script>
         
-        <script src="js/aws_custom.js"></script>
+        <script src="js/aws_services.js"></script>
         
        
     </head>
@@ -46,8 +46,14 @@
                <li class="nav-item table-active">
                         <a class="nav-link" href="#cover">Home</a>
                 </li>
-                <li class="nav-item">
-                     <a class="nav-link" href="sarees.html">Sarees</a>
+               
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sarees</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown10">
+                    <a class="dropdown-item nav-link" href="sarees.html?category=silk">Silk Sarees</a>
+                    <a class="dropdown-item nav-link" href="sarees.html?category=art-silk">Art Silk Sarees</a>
+                    <a class="dropdown-item nav-link" href="sarees.html?category=cotton">Cotton Sarees</a>
+                  </div>
                 </li>
                 <li class="nav-item">
                      <a class="nav-link" href="necklaces.html">Necklaces</a>
@@ -94,7 +100,7 @@
         
          <section id="sarees">
             
-            <div  class="section-sarees">
+            <div  class="section-featured-sarees">
                  <div class="container">
                      <h2>Featured <a href="sarees.html"><span class="bold-green">Sarees</span></a></h2>
                     <div class="row" id="replace-sarees">
@@ -104,8 +110,7 @@
                 </div>
             </div> 
             <script type="text/javascript">
-                viewAlbum('featured-sarees','replace-sarees');
-                viewTags('featured-sarees');
+                 queryInventoryItems('featured-sarees',"replace-sarees");
              </script>
          </section>
         
@@ -122,8 +127,8 @@
 
                 </div> 
                 <script type="text/javascript">
-                    viewAlbum('featured-necklaces','replace-necklaces');
-                    viewTags('featured-necklaces');
+                    queryInventoryItems('featured-necklaces','replace-necklaces');
+                   
                  </script>
 
         </section>
