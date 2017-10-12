@@ -1,0 +1,223 @@
+<html>
+<head>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+
+<script type="text/javascript">
+
+  // Set the region where your identity pool exists (us-east-1, eu-west-1)
+        AWS.config.region = 'us-west-2';
+
+        // Configure the credentials provider to use your identity pool
+               
+        
+        
+        // Initialize the Amazon Cognito credentials provider
+        AWS.config.region = 'us-west-2'; // Region
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: 'us-west-2:fe22d333-19ba-40ee-a3f1-c4c3e6b3848b',
+        });
+
+
+
+
+        // Make the call to obtain credentials
+        AWS.config.credentials.get(function(){
+
+            // Credentials will be available when this function is called.
+            var accessKeyId = AWS.config.credentials.accessKeyId;
+            var secretAccessKey = AWS.config.credentials.secretAccessKey;
+            var sessionToken = AWS.config.credentials.sessionToken;
+           // alert(accessKeyId);
+
+        });
+        
+//var dynamodb = new AWS.DynamoDB();
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    
+    
+    function addProduct() {
+      
+        
+        var product = {
+            id:"999-004",
+            description:"my test desc 4",
+            price: 400.50
+        };
+        
+        createProductRecord(product);
+        
+    }
+    
+    function readProduct() {
+        
+        var product = {
+            id:"999-004",
+            description:"my test desc 4",
+            price: 400.50
+        };
+        
+        readProductRecord(product);
+        
+    }
+    
+    function updateProduct() {
+        
+        var product = {
+            id:"999-004",
+            description:"my test desc 4 -update",
+            price: 444.44
+        };
+        
+        updateProductRecord(product);
+        
+    }
+    
+    
+    function deleteProduct() {
+        
+        var product = {
+            id:"999-004",
+            description:"my test desc 4 -update",
+            price: 444.44
+        };
+        
+        deleteProductRecord(product);
+        
+    }
+    
+    
+    function createProductRecord(product) {
+    
+    
+    var params = {
+                    TableName: "tru_product",
+                    Item: {
+                        "productId": product.id,
+                        "description": product.description,
+                        "price": product.price
+                    }
+                };
+    
+     docClient.put(params, function (err, data) {
+                    if (err) {
+                        document.getElementById('textarea').innerHTML += "Unable to add product: " + count + product.description + "\n";
+                        document.getElementById('textarea').innerHTML += "Error JSON: " + JSON.stringify(err) + "\n";
+                    } else {
+                        document.getElementById('textarea').innerHTML += "PutItem succeeded: " + product.description + "\n";
+                        textarea.scrollTop = textarea.scrollHeight;
+                    }
+                });
+    
+}
+    
+    
+    
+    
+    
+function readProductRecord(product) {
+    
+    
+    var params = {
+                    TableName: "tru_product",
+                    Key: {
+                        "productId": product.id
+                    }
+                };
+    
+     docClient.get(params, function (err, data) {
+                    if (err) {
+                        document.getElementById('textarea').innerHTML = "Unable to read item: " + "\n" + JSON.stringify(err, undefined, 2);
+                    } else {
+                        document.getElementById('textarea').innerHTML = "GetItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2);
+                    }
+
+                });
+    
+}
+    
+    
+    function updateProductRecord(product) {
+        
+
+        var params = {
+            TableName: "tru_product",
+            Key:{
+                "productId": product.id
+            },
+            UpdateExpression: "set description = :d, price=:p",
+            ExpressionAttributeValues:{
+                ":p":product.price,
+                ":d":product.description
+            },
+            ReturnValues:"UPDATED_NEW"
+        };
+
+        docClient.update(params, function(err, data) {
+            if (err) {
+                document.getElementById('textarea').innerHTML = "Unable to update item: " + "\n" + JSON.stringify(err, undefined, 2);
+            } else {
+                document.getElementById('textarea').innerHTML = "UpdateItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2);
+            }
+        });
+}
+
+    
+    function deleteProductRecord(product) {
+        
+
+        var params = {
+            TableName: "tru_product",
+            Key:{
+                "productId": product.id
+            }
+        };
+
+        docClient.delete(params, function(err, data) {
+            if (err) {
+                document.getElementById('textarea').innerHTML = "Unable to delete item: " + "\n" + JSON.stringify(err, undefined, 2);
+            } else {
+                document.getElementById('textarea').innerHTML = "deleteItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2);
+            }
+        });
+}
+    
+    
+    function queryData() {
+    document.getElementById('textarea').innerHTML += "Querying for movies from 1985.";
+
+    var params = {
+        TableName : "Movies",
+        KeyConditionExpression: "#yr = :yyyy",
+        ExpressionAttributeNames:{
+            "#yr": "year"
+        },
+        ExpressionAttributeValues: {
+            ":yyyy":1985
+        }
+    };
+
+    docClient.query(params, function(err, data) {
+        if (err) {
+            document.getElementById('textarea').innerHTML += "Unable to query. Error: " + "\n" + JSON.stringify(err, undefined, 2);
+        } else {
+            document.getElementById('textarea').innerHTML += "Querying for movies from 1985: " + "\n" + JSON.stringify(data, undefined, 2);
+        }
+    });
+}
+
+
+</script>
+</head>
+
+<body>
+<button onclick="addProduct()">Add Product</button>
+<button onclick="readProduct()">Read Product</button>
+<button onclick="updateProduct()">Update Product</button>
+<button onclick="deleteProduct()">Delete Product</button>
+<button onclick="queryData()">Query Movies</button>
+<br><br>
+<textarea readonly id= "textarea" style="width:400px; height:800px"></textarea>
+
+
+</body>
+</html>

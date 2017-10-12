@@ -25,57 +25,7 @@
             });	
         </script>
         
-        
-         <script src="js/aws_services.js"></script>
-        
-        <script>
-            
-            function addItem() {
-                
-                addPhoto();
-                
-                var category = document.getElementById("id_category").value;
-                var fname = document.getElementById("id_fname").value;
-                var imageKey = category +'/' + fname;
-                
-                /*
-                var similarItems = {
-                        "items": [
-                            {
-                                "item_id": "100-6520",
-                                "item_image_url": "sarees/silk/IMG_6520.JPG"
-                            },
-                            {
-                                "item_id": "100-6521",
-                                "item_image_url": "sarees/silk/IMG_6521.JPG"
-                            }
-
-
-
-                        ]
-                    };
-                */
-                
-                var item = {
-                    id: document.getElementById("id_itemid").value,
-                    category: category,
-                    image_url: imageKey,
-                    title: document.getElementById("id_itemtitle").value,
-                    price: Number(document.getElementById("id_itemprice").value),
-                    shortDesc: document.getElementById("id_itemshortdesc").value,
-                    longDesc: document.getElementById("id_itemlongdesc").value,
-                    quantityOnHand: Number(document.getElementById("id_itemqoh").value),
-                    quantityOnOrder: Number(document.getElementById("id_itemqoo").value),
-                    similarItems: document.getElementById("id_itemsimilar").value,
-                };
-                
-                addInventoryItem(item);
-            
-            }
-            
-        </script>
-        
-       
+        <script src="js/aws_custom.js"></script>
          
     
     </head>
@@ -137,14 +87,11 @@
          <section id="admin">
              <div class="section-admin">
                  <div class="container">
-                  
                     <div class="row">
                          <div class="col-sm-12">
-                           
-                             <h2>Add Inventory Item</h2>
-                                <form class="form-horizontal" action="javascript:addItem()" method="post">
-                                
-                                  <input type="hidden" class="form-control" id="id_fname" name="fname"  value="">
+                             <h2>Upload Photo File</h2>
+                             
+                                <form class="form-horizontal" action="javascript:addPhoto()" method="post">
                                 
                                 <div class="form-group row">
                                     <label for="id_category" class="col-sm-2 control-label">Category</label>
@@ -172,6 +119,23 @@
                                      </div>
                                  </div>
                                  
+                                 <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input id="submit" name="submit" type="submit"  value="Submit" class="btn btn-success">
+                                        
+                                    </div>
+						         </div>
+                                
+                                 
+                             </form>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-12">
+                             <h2>Upload Photo Tags</h2>
+                             
+                                <form class="form-horizontal" action="javascript:createS3ObjectTags()" method="post">
+                                     <input type="hidden" class="form-control" id="id_fname" name="fname"  value="">
                                      
 
                                      <div class="form-group row">
@@ -207,36 +171,13 @@
                                      </div>
 
 
-                                   
-                                     
-                                      <div class="form-group row">
-                                         <label for="itemqoh" class="col-sm-2 control-label">Quantity On Hand</label> 
-                                         <div class="col-sm-10">
-                                             <input type="text" class="form-control" id="id_itemqoh" name="itemqoh" placeholder="1" value="1">
-                                         </div>
-                                     </div>
                                      <div class="form-group row">
-                                         <label for="itemqoo" class="col-sm-2 control-label">Quantity On Order</label> 
-                                         <div class="col-sm-10">
-                                             <input type="text" class="form-control" id="id_itemqoo" name="itemqoo" placeholder="0" value="0">
-                                         </div>
-                                     </div>
-                                     <div class="form-group row">
-                                         <label for="itemsimilar" class="col-sm-2 control-label">Similar Items</label> 
-                                         <div class="col-sm-10">
-                                             <input type="text" class="form-control" id="id_itemsimilar" name="itemsimilar" placeholder="100-1001,100-1002" value="None">
-                                         </div>
-                                     </div>
-                                     
-                                    <div class="form-group row">
                                         <div class="col-sm-8 col-sm-offset-2">
                                             <input id="submit" name="submit" type="submit" value="Submit" class="btn btn-success">
 
                                         </div>
                                      </div>
                                 
-                                
-                             
                                  
                              </form>
                          </div>
