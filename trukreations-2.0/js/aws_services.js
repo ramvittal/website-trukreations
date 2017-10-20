@@ -30,7 +30,8 @@
           params: {Bucket: albumBucketName}
         });
             
-        var cloudFrontDomain = "https://d2yi5iip5jqkyz.cloudfront.net";
+        var cloudFrontDomain = "https://trukreations.com";
+//var cloudFrontDomain = "https://www.trukreations.com";
 
         //var dynamodb = new AWS.DynamoDB();
         var docClient = new AWS.DynamoDB.DocumentClient();
@@ -60,6 +61,7 @@ function addInventoryItem(item) {
                         "quantity_on_hand":item.quantityOnHand,
                         "quantity_on_order":item.quantityOnOrder,
                         "similar_items": item.similarItems,
+                        "featured_item": item.featuredItem
                     }
                 };
     
@@ -113,13 +115,14 @@ function queryInventoryItems(in_catg,replaceElementId) {
                           '<div class="card simpleCart_shelfItem">',
                                 '<div class="card-block" style="text-align:center;font-size:20px;">',
                                     
-                                    '<span class="card-title item_name">' + element.title +  '</span>',
+                                    '<span class="card-title">' + element.title +  '</span>',
+                                    '<p hidden class="item_name">'  + element.title +  '</p>',
                                     
                                 '</div>',
                                 '<img id="' +element.item_id + '" ' + 'src="' + bucketUrl + element.item_image_url + '"  onclick="displayItemDetail(this)">',
                                 '<div class="card-block" style="font-size:12px;">',
-                                    '<p id="' +element.item_id + '-desc"' + 'class="card-text">' + element.short_desc + ' Item# <span class="item_number">' + element.item_id +  '</span>&nbsp; </p>',
-                                    '<p id="' +element.item_id + '-price"' + 'class="card-text"><span class="item_price" style="color:red">$' + element.price +  '</span>&nbsp;&nbsp;<button class="btn btn-success item_add" style="font-size:10px;">Add to Cart</button></p>',
+                                    '<p id="' +element.item_id + '-desc"' + 'class="card-text">' + element.short_desc + '. Item# <span class="item_number">' + element.item_id +  '</span>&nbsp; </p>',
+                                    '<p id="' +element.item_id + '-price"' + 'class="card-text"><span class="item_price" style="color:red">$' + element.price +  '</span>&nbsp;&nbsp;<button id="' +element.item_id + '-addcart"' + ' class="btn btn-success item_add" style="font-size:12px;">Add to Cart</button></p>',
                                 '</div>',
                             '</div>',
                         '</div>']
@@ -135,6 +138,26 @@ function queryInventoryItems(in_catg,replaceElementId) {
         
 }
     
+function evalAddCartDisable(element, itemQoh) {
+    
+  if(itemQoh <= 1) {
+      element.disabled = false;
+  }  
+    
+}
+
+
+function enableAllAddCartButtons() {
+    
+    var addCartElements = document.getElementsByClassName("btn btn-success item_add");
+    
+    for(var i=0; i < addCartElements.length; i++) {
+        var element = addCartElements[i];
+        element.disabled = false;
+    }
+
+}
+
 
 function getInventoryItem(itemId) {
     

@@ -1,0 +1,42 @@
+
+/*
+=========================================
+=========================================
+
+Bootstrapious Boilerplate Template
+
+=========================================
+========================================= */
+
+
+// functions.scss - Bootstrap functions
+@import "functions";
+// variables-custom.scss - to change colour variant, rounded corners, etc.
+@import "variables-custom";
+// bootstrap mixins
+@import "mixins";
+// bootstrap mixins
+@import "utilities";
+// custom mixins
+@import "mixins-custom";
+// general styling
+@import "general";
+// product details page styling
+@import "product-details";
+// product categories page styling
+@import "product-categories";
+// cart page styling
+@import "cart";
+// checkout page styling
+@import "checkout";
+// contact page styling
+@import "contact";
+// blog styling
+@import "blog";
+// about us styling
+@import "about";
+// demo styling
+@import "demo";
+
+// bootstrap base stylesheet overrides
+@import "theme";

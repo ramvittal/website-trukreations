@@ -344,12 +344,28 @@
 						// keep the item if the function returns false,
 						// because we know it has been prevented 
 						// from being removed
+                        //ramvittal add begin
+                       // console.log("from empty cart func:" +item.get("number") );
+                        var id = item.get("number");
+                        
+                        if(document.getElementById(id + "-addcart") != null)
+                            document.getElementById(id + "-addcart").disabled=false;
+                        //ramvittal add end
+                        
+                        
 						if (item.remove(true) === false) {
 							newItems[item.id()] = item
 						}
 					});
 					sc_items = newItems;
 					simpleCart.update();
+                    
+                    //ramvittal add begin
+                   
+                    // trigger after empty event
+                    simpleCart.trigger('afterEmpty');
+					
+                    //ramvittal add end
 				},
 
 

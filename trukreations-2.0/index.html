@@ -28,12 +28,22 @@
                     sandbox: true, 
          
                     // url to return to on successful checkout, default is null -   success: https://ta2lafdzg4.execute-api.us-west-2.amazonaws.com/tru_checkout_finalize_api, 
-                    success: "https://posttestserver.com/post.php" , 
+                    success: "https://ta2lafdzg4.execute-api.us-west-2.amazonaws.com/tru_checkout_finalize_api" , 
                     // url to return to on cancelled checkout, default is null
                     cancel: "https://posttestserver.com/post.php" 
 
                 }
             });	
+            
+            simpleCart.bind( "afterAdd" , function( item ){
+                 // console.log( item.get("name") + " was added to the cart!" );
+                //  console.log( item.get("number") + " was added to the cart!" );
+                    var itemId = item.get("number") + '-addcart'
+                    document.getElementById(itemId).disabled =  true;
+                });
+
+        
+
         </script>
         
         <script src="js/aws_services.js"></script>
@@ -253,6 +263,8 @@
                  </div>
              </div>
          </section>
+         
+         
          
          <footer class="footer">
              <div class="container">
