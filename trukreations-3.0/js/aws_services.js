@@ -35,6 +35,8 @@
 
         //var dynamodb = new AWS.DynamoDB();
         var docClient = new AWS.DynamoDB.DocumentClient();
+
+       // var gblItem;
         
         //alert("test");
         
@@ -124,7 +126,7 @@ function queryInventoryItems(in_catg,replaceElementId) {
                                 '</div>',
                               '</div>',
                               '<div class="title"><small class="text-muted">' + element.short_desc +'</small><a href="detail.html">',
-                                  '<h3 class="h6 text-uppercase no-margin-bottom">' + element.title +'</h3></a><span class="price text-muted">$' + element.price +'</span></div>',
+                                  '<h3 class="h6 text-uppercase no-margin-bottom item_title">' + element.title +'</h3></a><span class="price item_price text-muted">$' + element.price +'</span></div>',
                             '</div>',
                           '</div>',
                     ]
@@ -376,6 +378,44 @@ function displayItemDetail(img) {
             }
 
 
+function  logCartItems() {
+    
+       var htmlArray=['','','','','',''];
+        var html = ['item1', 'item2'];
+        var i=0;
+    
+                     var items = [];
+                    console.log('cart items:');
+                    //console.log(sc_items);
+                    simpleCart.each(function( item , x ){
+                        //items.push( item );
+                       // console.log(item);
+                        console.log(item.get('name'));
+                       // console.log(item.get('price'));
+                        console.log(item.get('imageurl'));
+                        html = [
+                            '<div class="d-flex align-items-center">',
+                                  '<div class="img"><img src="' +item.get('imageurl') + '" alt="..." class="img-fluid"></div>',
+                                  '<div class="details d-flex justify-content-between">',
+                                    '<div class="text"> <a href="#"><strong>' + item.get('name') + '</strong></a><small>Quantity: ' + item.get('quantity') + '</small><span class="price">$' +item.get('price') +'</span></div>',
+                                    '<div class="delete"><i class="fa fa-trash-o"></i></div>',
+                                  '</div>',
+                            '</div>'
+                            
+                        ];
+                        
+                        
+                        htmlArray[i] = html.join("");
+                        i = i +1;
+
+                    });
+                    //console.log('cart items:');
+                    console.log( htmlArray );   
+                    
+                    document.getElementById("replace-cart-dropdown").innerHTML = htmlArray.join("");
+                
+            }
+
 
  function viewItemDetail() {
             
@@ -398,8 +438,10 @@ function displayItemDetail(img) {
                                 console.log(JSON.stringify(err));
                             } else {
                                  var item = data.Item;
+                               // gblItem = item;
                                  console.log("item image url" +JSON.stringify(item.item_image_url));
                                  document.getElementById("id_itemDetailImg").src = cloudFrontDomain + "/" + item.item_image_url;
+                                 //document.getElementById("id_itemDtlImageUrl").innerHTML= cloudFrontDomain + "/" + item.item_image_url;
                                    document.getElementById("id_itemDetailTitle").innerHTML = '<h2 class="card-title item_name">' + item.title + '</h2>';
                                    document.getElementById("id_itemDetailTitle2").innerHTML = item.title;
                                   document.getElementById("id_itemDetailId").innerHTML = '<p class="card-text">Item# ' + itemId + '</p>',
