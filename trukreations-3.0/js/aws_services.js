@@ -84,17 +84,39 @@ function addInventoryItem(item) {
         
        
 
-function queryInventoryItems(in_catg,replaceElementId) {
+function queryInventoryItems(in_catg,replaceElementId, featured) {
+    
+    var params;
+    
+    if(featured != 'true')  {
+        
 
-    var params = {
-        TableName : "tru_inventory_item",
-        ProjectionExpression: "item_id, item_category, title, price, item_image_url, short_desc, long_desc, quantity_on_hand",
-        FilterExpression: "item_category = :catg and quantity_on_hand > :qty",
-        ExpressionAttributeValues : {
-            ":catg": in_catg,
-            ":qty" : 0
-        }
-    };
+         params = {
+            TableName : "tru_inventory_item",
+            ProjectionExpression: "item_id, item_category, title, price, item_image_url, short_desc, long_desc, quantity_on_hand, sale_price",
+            FilterExpression: "item_category = :catg and quantity_on_hand > :qty",
+            ExpressionAttributeValues : {
+                ":catg": in_catg,
+                ":qty" : 0
+            }
+        };
+    }
+    else {
+        
+        console.log('featured:' +featured);
+         params = {
+            TableName : "tru_inventory_item",
+            ProjectionExpression: "item_id, item_category, title, price, item_image_url, short_desc, long_desc, quantity_on_hand, sale_price",
+            FilterExpression: "featured_item = :featured and quantity_on_hand > :qty",
+            ExpressionAttributeValues : {
+                ":featured": featured,
+                ":qty" : 0
+            }
+        };
+        
+    }
+    
+    
     
     var bucketUrl = cloudFrontDomain + '/';
 
@@ -109,15 +131,32 @@ function queryInventoryItems(in_catg,replaceElementId) {
                 var htmlArray=['','','','','',''];
                 var html = ['item1', 'item2'];
                 var i=0;
+                var saleTag='';
+                var priceLine='';
                 data.Items.forEach(function(element, index, array) {
-                    console.log('title:' +element.title + " (" + element.item_image_url + ")");
+                    console.log('title:' +element.title + " (" + element.item_image_url + ")" + 'sale_price:' +element.sale_price);
+                    
+                    if(element.sale_price > 0) {
+                        console.log("sale price found");
+                        saleTag =  '<div class="ribbon ribbon-primary text-uppercase">Sale</div>';
+                        priceLine = '<ul class="price list-inline no-margin">' + 
+                                            '<li  class="list-inline-item price current item_price ">$' + element.sale_price +'</li>' + 
+                                            '<li class="list-inline-item price original">$' + element.price + '</li>' +
+                                                          '</ul>';
+                    }
+                    else {
+                        saleTag = '';
+                        priceLine = '<ul class="price list-inline no-margin">' + 
+                                            '<li class="list-inline-item price current item_price">$' + element.price + '</li>' +
+                                                          '</ul>';
+                    }
                     
                     
                     html = [
                         ' <div class="item col-xl-4 col-md-6"> ', 
                             '<div class="product is-gray">',
                               '<div class="image d-flex align-items-center justify-content-center">',
-                                '<div class="ribbon ribbon-primary text-uppercase">Sale</div>',
+                                saleTag,
                         '<img id="' +element.item_id + '" ' + 'src="' + bucketUrl + element.item_image_url + '" alt="product" class="img-fluid">',
                                 '<div class="hover-overlay d-flex align-items-center justify-content-center">',
                                   '<div class="CTA d-flex align-items-center justify-content-center"><a href="#" class="add-to-cart"><i class="fa fa-shopping-cart"></i></a>',
@@ -126,7 +165,8 @@ function queryInventoryItems(in_catg,replaceElementId) {
                                 '</div>',
                               '</div>',
                               '<div class="title"><small class="text-muted">' + element.short_desc +'</small><a href="detail.html">',
-                                  '<h3 class="h6 text-uppercase no-margin-bottom item_title">' + element.title +'</h3></a><span class="price item_price text-muted">$' + element.price +'</span></div>',
+                                  '<h3 class="h6 text-uppercase no-margin-bottom item_title">' + element.title +'</h3></a>',
+                                    priceLine + '</div>',
                             '</div>',
                           '</div>',
                     ]
