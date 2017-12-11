@@ -485,8 +485,10 @@ function  logCartItems() {
                                    document.getElementById("id_itemDetailTitle").innerHTML = '<h2 class="card-title item_name">' + item.title + '</h2>';
                                    document.getElementById("id_itemDetailTitle2").innerHTML = item.title;
                                   document.getElementById("id_itemDetailId").innerHTML = '<p class="card-text">Item# ' + itemId + '</p>',
-                                   document.getElementById("id_itemDetailDesc").innerHTML = '<p class="card-text">' + item.long_desc + '</p>',
-                                   document.getElementById("id_itemDetailPrice").innerHTML = '<p class="card-link item_price">Price: <span style="color:red"> $' + item.price + '</span></p>';
+                                   document.getElementById("id_itemDetailDesc").innerHTML = '<p class="card-text">' + item.short_desc + '</p>',
+                                   document.getElementById("id_itemDetailLongDesc").innerHTML = '<p class="card-text">' + item.long_desc + '</p>',
+                                   document.getElementById("id_itemDetailSalePrice").innerHTML = '$' + item.sale_price;
+                                   document.getElementById("id_itemDetailPrice").innerHTML = '$' + item.price;
                             }
 
                         });
