@@ -94,16 +94,36 @@
               </li>
               <li class="nav-item"><a href="category.html" class="nav-link">Shop</a>
               </li>
-              <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a>
+              
+              <!-- Multi level dropdown    -->
+              <li class="nav-item dropdown"><a id="navbarDropdownMenuLink" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">Admin<i class="fa fa-angle-down"></i></a>
+                <ul aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+                  <li><a href="#" class="dropdown-item">Add item</a></li>
+                  <li><a href="#" class="dropdown-item">Update item</a></li>
+                  <li><a href="#" class="dropdown-item">Delete item</a></li>
+                 
+                </ul>
               </li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a>
+             
+              <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a>
               </li>
             </ul>
             <div class="right-col d-flex align-items-lg-center flex-column flex-lg-row">
               <!-- Search Button-->
-            
+              <div class="search"><i class="icon-search"></i></div>
               <!-- User Dropdown-->
-              
+              <div class="user dropdown show"><a id="userdetails" href="https://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-profile"></i></a>
+                <ul aria-labelledby="userdetails" class="dropdown-menu"> 
+                  <li class="dropdown-item"><a href="#">Login       </a></li>
+                  <!--
+                  <li class="dropdown-item text-hide"><a href="#">Profile       </a></li>
+                  <li class="dropdown-item text-hide"><a href="#">Orders       </a></li>
+                  <li class="dropdown-divider text-hide">     </li>
+                  <li class="dropdown-item text-hide"><a href="#">Logout       </a></li>
+                  -->
+                  
+                </ul>
+              </div>
               <!-- Cart Dropdown-->
               <div class="cart dropdown show"><a id="cartdetails" href="https://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-cart"></i>
                   
@@ -119,7 +139,27 @@
                       
                 </div>
                   
+                <!--
+                <div aria-labelledby="cartdetails" class="dropdown-menu">
+                 
+                  <div class="dropdown-item cart-product">
+                    <div class="d-flex align-items-center">
+                     <div class="text">Cart is empty</div>
+                     
+                      <div class="img"><img src="img/hoodie-man-1.png" alt="..." class="img-fluid"></div>
+                      <div class="details d-flex justify-content-between">
+                        <div class="text"> <a href="#"><strong>Heather Gray Hoodie</strong></a><small>Quantity: 1 </small><span class="price">$75.00 </span></div>
+                        <div class="delete"><i class="fa fa-trash-o"></i></div>
+                      </div>
+                      
+                    </div>
+                  </div>
                 
+                  <div class="dropdown-item total-price d-flex justify-content-between"><span>Total</span><strong class="text-primary">$75.00</strong></div>
+                  
+                  <div class="dropdown-item CTA d-flex"><a href="cart.html" class="btn btn-template wide">View Cart</a><a href="checkout1.html" class="btn btn-template wide">Checkout</a></div>
+                </div>
+                 -->
               </div>
             </div>
           </div>
@@ -136,7 +176,7 @@
             <div class="row">
               <div class="col-lg-6 text-white">
                 <h1>Welcome to Trukreations!</h1>
-                <p class="lead">Your destination for eclectic Silk Sarees and uniquely designed necklaces made in USA</p><a href="category.html" class="btn btn-template wide shop-now">Shop Now<i class="icon-bag">  </i></a>
+                <p class="lead">Your destination for eclectic Silk Sarees and uniquely designed necklaces made in USA</p><a href="#" class="btn btn-template wide shop-now">Shop Now<i class="icon-bag">  </i></a>
               </div>
             </div>
           </div>

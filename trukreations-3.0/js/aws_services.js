@@ -160,8 +160,10 @@ function queryInventoryItems(in_catg,replaceElementId, featured) {
                         '<img id="' +element.item_id + '" ' + 'src="' + bucketUrl + element.item_image_url + '" alt="product" class="img-fluid">',
                                 '<div class="hover-overlay d-flex align-items-center justify-content-center">',
                                   '<div class="CTA d-flex align-items-center justify-content-center"><a href="#" class="add-to-cart"><i class="fa fa-shopping-cart"></i></a>',
-                                        '<a href="detail.html?itemId=' +element.item_id + '" class="visit-product active"><i class="icon-search"></i>View</a><a href="detail.html?itemId=' +element.item_id + '"  data-toggle="modal" data-target="#exampleModal" class="quick-view">',
-                                            '<i class="fa fa-arrows-alt"></i></a></div>',
+                                        '<a href="detail.html?itemId=' +element.item_id + '" class="visit-product active"><i class="icon-search"></i>View</a>',
+                                        '<a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="' +element.item_id + '"',
+                                    ' class="quick-view"><i class="fa fa-arrows-alt"></i></a>',
+                                    '</div>',
                                 '</div>',
                               '</div>',
                               '<div class="title"><small class="text-muted">' + element.short_desc +'</small><a href="detail.html">',
@@ -418,6 +420,14 @@ function displayItemDetail(img) {
             }
 
 
+function scItemDelete(itemId) {
+    console.log("sc item delete selected for id:" +itemId);
+    var elem = document.getElementById(itemId + '-scline');
+    elem.parentNode.removeChild(elem);
+    simpleCart.delete(itemId);
+
+}
+
 function  logCartItems() {
     
        var htmlArray=['','','','','',''];
@@ -433,12 +443,14 @@ function  logCartItems() {
                         console.log(item.get('name'));
                        // console.log(item.get('price'));
                         console.log(item.get('imageurl'));
+                        var itemId = item.get('id');
+                        console.log("itemId:" +itemId);
                         html = [
-                            '<div class="d-flex align-items-center">',
+                            '<div id="' +itemId + '-scline"' +' class="d-flex align-items-center simpleCart_shelfItem">',
                                   '<div class="img"><img src="' +item.get('imageurl') + '" alt="..." class="img-fluid"></div>',
                                   '<div class="details d-flex justify-content-between">',
                                     '<div class="text"> <a href="#"><strong>' + item.get('name') + '</strong></a><small>Quantity: ' + item.get('quantity') + '</small><span class="price">$' +item.get('price') +'</span></div>',
-                                    '<div class="delete"><i class="fa fa-trash-o"></i></div>',
+                                    '<div id="' +itemId + '"' + ' class="delete" onclick="scItemDelete(this.id)' + '"><i class="fa fa-trash-o"></i></div>',
                                   '</div>',
                             '</div>'
                             
@@ -460,6 +472,7 @@ function  logCartItems() {
  function viewItemDetail() {
             
      
+            console.log('in viewItemDetail()');
      
             var queryString = decodeURIComponent(window.location.search);
             queryString = queryString.substring(1);
@@ -489,6 +502,82 @@ function  logCartItems() {
                                    document.getElementById("id_itemDetailLongDesc").innerHTML = '<p class="card-text">' + item.long_desc + '</p>',
                                    document.getElementById("id_itemDetailSalePrice").innerHTML = '$' + item.sale_price;
                                    document.getElementById("id_itemDetailPrice").innerHTML = '$' + item.price;
+                            }
+
+                        });
+    
+     
+           
+                    
+     
+ }
+
+function viewItemDetailModal(itemId, modal) {
+            
+     
+            console.log('in viewItemDetailModal():' +itemId);
+     
+          
+            //alert('itemId=' +itemId);
+     
+             var params = {
+                            TableName: "tru_inventory_item",
+                            Key: {
+                                "item_id": itemId
+                            }
+                        };
+
+             docClient.get(params, function (err, data) {
+                            if (err) {
+                                console.log(JSON.stringify(err));
+                            } else {
+                                 var item = data.Item;
+                               // gblItem = item;
+                                console.log('item.title:' +item.title);
+                                modal.find('#id_itemDetailTitle').text(item.title)
+                               // document.getElementById("id_itemDetailTitle").innerHTML = '<h2 class="card-title item_name">' + item.title + '</h2>';
+                                
+                                 console.log("item image url" +JSON.stringify(item.item_image_url));
+                                 var imgSrc = cloudFrontDomain + "/" + item.item_image_url;
+                               // $(".modal-body #id_itemDetailImg").attr("src", imgSrc);
+                                modal.find("#id_itemDetailImg").attr("src", imgSrc);
+
+                                 //document.getElementById("id_itemDtlImageUrl").innerHTML= cloudFrontDomain + "/" + item.item_image_url;
+                                
+                                   
+                                  // document.getElementById("id_itemDetailTitle2").innerHTML = item.title;
+                                 //  modal.find('#id_itemDetailTitle2').html(item.title);
+                                 // document.getElementById("id_itemDetailId").innerHTML = '<p class="card-text">Item# ' + itemId + '</p>',
+                                  modal.find("#id_itemDetailId").text('Item# ' + itemId);
+                                  
+                               // document.getElementById("id_itemDetailDesc").innerHTML = '<p class="card-text">' + item.short_desc + '</p>',
+                                modal.find("#id_itemDetailDesc").text(item.short_desc);
+                                  // document.getElementById("id_itemDetailLongDesc").innerHTML = '<p class="card-text">' + item.long_desc + '</p>',
+                                  // document.getElementById("id_itemDetailSalePrice").innerHTML = '$' + item.sale_price;
+                                   modal.find("#id_itemDetailSalePrice").text('$' + item.sale_price);
+                                   //document.getElementById("id_itemDetailPrice").innerHTML = '$' + item.price;
+                                   modal.find("#id_itemDetailPrice").text('$' + item.price);
+                                
+                                modal.find("#replaceItemPrice").html("hello world");
+                                
+                                var itemPriceHtml='';
+                                
+                                 if(item.sale_price > 0) {
+                                     itemPriceHtml = [
+                                         '<li id="id_itemDetailSalePrice" class="list-inline-item price current">',
+                                        '$' +item.sale_price + '</li>',
+                                    '<li id="id_itemDetailPrice" class="list-inline-item price original">',
+                                    '$' + item.price +'</li>'     
+                                         ]
+                                 } else {
+                                     itemPriceHtml = [
+                                         '<li id="id_itemDetailPrice" class="list-inline-item price current">',
+                                    '$' + item.price +'</li>'  
+                                        ]
+                                 }
+                                   
+                                modal.find("#replaceItemPrice").html(itemPriceHtml.join(""));
+                                   
                             }
 
                         });

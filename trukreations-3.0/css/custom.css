@@ -1,1 +1,16 @@
 /* your styles go here */
+
+.product-modal .price {
+  font-size: 1.00em;
+}
+
+.product-modal .price .original {
+  font-weight: 300;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.product-modal .price .current {
+  font-weight: 300;
+  color: #9055A2;
+}

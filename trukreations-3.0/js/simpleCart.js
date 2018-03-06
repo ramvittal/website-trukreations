@@ -368,6 +368,22 @@
                     //ramvittal add end
 				},
 
+                // functions for delete an item from the card   -- new ram vittal
+				delete: function (itemId) {
+					var quantity = 0;
+					simpleCart.each(function (item) {
+                        var cartItemId = item.get("id");
+                        console.log("itemNumber:" +cartItemId);
+                        console.log("input item id:" +itemId);
+						if(cartItemId == itemId) { 
+                            item.remove(true); 
+                            simpleCart.update(); 
+                            console.log("removing item id:" +itemId) 
+                        }
+					});
+					return quantity;
+				},
+                //end ram vittal
 
 				// functions for accessing cart info
 				quantity: function () {
