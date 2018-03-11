@@ -423,7 +423,13 @@ function displayItemDetail(img) {
 function scItemDelete(itemId) {
     console.log("sc item delete selected for id:" +itemId);
     var elem = document.getElementById(itemId + '-scline');
-    elem.parentNode.removeChild(elem);
+    if(elem !=null)
+        elem.parentNode.removeChild(elem);
+    
+    elem = document.getElementById(itemId + '-chkout-line');
+    if(elem !=null)
+        elem.parentNode.removeChild(elem);
+    
     simpleCart.delete(itemId);
 
 }
@@ -465,8 +471,86 @@ function  logCartItems() {
                     console.log( htmlArray );   
                     
                     document.getElementById("replace-cart-dropdown").innerHTML = htmlArray.join("");
+    
+                   // showCheckoutCartDetail();
                 
             }
+
+
+function  showCheckoutCartDetail() {
+    
+       var htmlArray=['','','','','',''];
+        var html = ['item1', 'item2'];
+        var i=0;
+    
+                     var items = [];
+    
+                    console.log("in showCheckoutCartDetail");
+                  
+                    simpleCart.each(function( item , x ){
+                       
+                        var itemId = item.get('id');
+                        console.log("itemId:" +itemId);
+                        var itemLinePrice =  item.get('price') * item.get('quantity');
+                        
+                       
+                        
+                        html = [
+                            
+                            '<div id="' +itemId + '-chkout-line"' + '  class="item">',
+                             '<div class="row d-flex align-items-center">',
+                              '<div class="col-5">',
+                                '<div class="d-flex align-items-center">',
+                                    '<img src="' +item.get('imageurl') + '" alt="..." class="img-fluid"></div>',
+                                  '<div class="title"><a href="detail.html">',
+                                      '<h5>' + item.get('name') + '</h5><span class="text-muted">Size: Large</span></a>',
+                                '</div>',
+                              '</div>',
+                              '<div class="col-2"><span class="price">$' +item.get('price') +'</span></div>',
+                              '<div class="col-2">',
+                                '<div class="d-flex align-items-center">',
+                                  '<div class="quantity d-flex align-items-center simpleCart_shelfItem">',
+                                    '<div id="' +itemId + '"' + ' class="dec-btn " onclick="updateCartItemQuantity(this,-1)' + '">-</div>',
+                                    '<input type="text" value="' +item.get('quantity') + '" class="quantity-no">',
+                                    '<div  id="' +itemId + '"' + ' class="inc-btn " onclick="updateCartItemQuantity(this,1)' + '">+</div>',
+                                  '</div>',
+                                '</div>',
+                              '</div>',
+                              '<div id="' +itemId + '-line-price"' + ' class="col-2 item-line-price"><span>' +itemLinePrice + '</span></div>',
+                                '<div id="' +itemId + '"' + ' class="delete col-1 text-center" onclick="scItemDelete(this.id)' + '"><i class="fa fa-trash-o"></i></div>',
+                        '</div>'
+                            
+                            
+                        ];
+                        
+                        
+                        htmlArray[i] = html.join("");
+                        i = i +1;
+
+                    });
+                    //console.log('cart items:');
+                    console.log( htmlArray );   
+                    
+                    document.getElementById("replace-cart-detail").innerHTML = htmlArray.join("");
+                
+            }
+
+
+function updateCartItemQuantity(item,delta) {
+    
+    console.log("updateCartItemQuantity = " +item.id);
+    //item.quantity =  item.quantity +1;
+    var price =  simpleCart.updateQuantity(item.id, delta);
+    //simpleCart.delete(item.id);
+    console.log("exit updateCartItemQuantity: price = " +price);
+    
+    var htmlPrice = "<span>$" +price + "</span>";
+    
+    var itemLineSel = "#" + item.id + "-line-price"
+    $(itemLineSel).html(htmlPrice);
+
+    
+}
 
 
  function viewItemDetail() {

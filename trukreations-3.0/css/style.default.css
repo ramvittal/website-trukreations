@@ -5379,10 +5379,19 @@ section.product-description strong {
   color: #656565;
 }
 
+
 .basket .item {
   padding: 25px 0;
   border-bottom: 1px solid #ddd;
 }
+
+/*
+.basket .basket-holder .basket-body .item {
+  padding: 25px 0;
+  border-bottom: 1px solid #ddd;
+}
+*/
+
 
 .basket .item img {
   max-width: 80px;

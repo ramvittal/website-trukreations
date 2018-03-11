@@ -384,6 +384,29 @@
 					return quantity;
 				},
                 //end ram vittal
+                
+                  // functions for delete an item from the card   -- new ram vittal
+				updateQuantity: function (itemId, delta) {
+					var price = 0;
+                    console.log("enter simpleCart.update()");
+                    simpleCart.each(function (item) {
+                        var cartItemId = item.get("id");
+                        console.log("itemNumber:" +cartItemId);
+                        console.log("input item id:" +itemId);
+						if(cartItemId == itemId) { 
+                            quantity = item.get('quantity') + delta;
+                            item.set('quantity', quantity);
+                           // quantity = item.quantity;
+                            simpleCart.update(); 
+                            price = item.get('price') * item.get('quantity');
+                            console.log("updating item id:" +itemId) 
+                        }
+					});
+					
+                    console.log("exit simpleCart.update()");
+					return price;
+				},
+                //end ram vittal
 
 				// functions for accessing cart info
 				quantity: function () {
@@ -1840,6 +1863,7 @@
 
 											if (val !== null && val !== "") {
 												fields[attr.toLowerCase()] = fields[attr.toLowerCase()] ? fields[attr.toLowerCase()] + ", " +  val : val;
+                                               //  console.log("simpleCart.add:" +attr.toLowerCase() +"=" + fields[attr.toLowerCase()]);
 											}
 										}
 									});
@@ -1847,6 +1871,7 @@
 							});
 
 							// add the item
+                           // console.log("simpleCart.add fields" + fields[attr.toLowerCase()]);
 							simpleCart.add(fields);
 						}
 					}

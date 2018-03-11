@@ -54,6 +54,7 @@ $(function () {
     // Increase/Reduce product amount
     // ------------------------------------------------------ //
     $('.dec-btn').click(function () {
+        console.log("clicked dec-btn");
         var siblings = $(this).siblings('input.quantity-no');
         if (parseInt(siblings.val(), 10) >= 1) {
             siblings.val(parseInt(siblings.val(), 10) - 1);
