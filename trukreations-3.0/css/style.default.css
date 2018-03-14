@@ -5382,7 +5382,7 @@ section.product-description strong {
 
 .basket .item {
   padding: 25px 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 0px solid #ddd;
 }
 
 /*

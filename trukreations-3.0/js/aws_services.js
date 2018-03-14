@@ -153,13 +153,13 @@ function queryInventoryItems(in_catg,replaceElementId, featured) {
                     
                     
                     html = [
-                        ' <div class="item col-xl-4 col-md-6"> ', 
+                        ' <div class="item col-xl-4 col-md-6 simpleCart_shelfItem"> ', 
                             '<div class="product is-gray">',
                               '<div class="image d-flex align-items-center justify-content-center">',
                                 saleTag,
-                        '<img id="' +element.item_id + '" ' + 'src="' + bucketUrl + element.item_image_url + '" alt="product" class="img-fluid">',
+                        '<img id="' +element.item_id + '" ' + 'src="' + bucketUrl + element.item_image_url + '" alt="product" class="img-fluid item_imageurl">',
                                 '<div class="hover-overlay d-flex align-items-center justify-content-center">',
-                                  '<div class="CTA d-flex align-items-center justify-content-center"><a href="#" class="add-to-cart"><i class="fa fa-shopping-cart"></i></a>',
+                                  '<div class="CTA d-flex align-items-center justify-content-center"><a href="#" class="add-to-cart item_add"><i class="fa fa-shopping-cart"></i></a>',
                                         '<a href="detail.html?itemId=' +element.item_id + '" class="visit-product active"><i class="icon-search"></i>View</a>',
                                         '<a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="' +element.item_id + '"',
                                     ' class="quick-view"><i class="fa fa-arrows-alt"></i></a>',
@@ -167,7 +167,7 @@ function queryInventoryItems(in_catg,replaceElementId, featured) {
                                 '</div>',
                               '</div>',
                               '<div class="title"><small class="text-muted">' + element.short_desc +'</small><a href="detail.html">',
-                                  '<h3 class="h6 text-uppercase no-margin-bottom item_title">' + element.title +'</h3></a>',
+                                  '<h3 class="h6 text-uppercase no-margin-bottom">' + '<div class="item_name">' + element.title +'</div>' +'</h3></a>',
                                     priceLine + '</div>',
                             '</div>',
                           '</div>',
@@ -548,6 +548,17 @@ function updateCartItemQuantity(item,delta) {
     
     var itemLineSel = "#" + item.id + "-line-price"
     $(itemLineSel).html(htmlPrice);
+    
+    var orderSubTotal = simpleCart.total();
+    var orderTotal = orderSubTotal+10; 
+    console.log("orderSubtotal:" +orderSubTotal);
+     var htmlOrderSubTotal = "<strong>$" +orderSubTotal + "</strong>";
+     var htmlOrderTotal = '<strong class="text-primary price-total">$' + orderTotal+ "</strong>";
+    
+     var orderSubTotalSel = "#" + "order-sub-total"
+    $(orderSubTotalSel).html(htmlOrderSubTotal);
+    var orderTotalSel = "#" + "order-total"
+     $(orderTotalSel).html(htmlOrderTotal);
 
     
 }

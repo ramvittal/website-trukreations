@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hub - Bootstrap 4 Ecommerce Template</title>
+    <title>Trukreations</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -31,6 +31,18 @@
     <!-- Modernizr-->
     <script src="js/modernizr.custom.79639.js"></script>
     <!-- Bootstrap CSS -->
+      
+      <script src="js/simpleCart.js"></script>
+        <script>
+            simpleCart({
+                checkout: { 
+                    type: "PayPal" , 
+                    email: "trukreations@gmail.com" 
+                }
+            });	
+            
+          
+        </script>
 
       <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
      <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
@@ -105,21 +117,20 @@
               <!-- User Dropdown-->
               
               <!-- Cart Dropdown-->
-              <div class="cart dropdown show"><a id="cartdetails" href="https://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-cart"></i>
-                  
-                  
-                  <div class="cart-no"><div class="simpleCart_quantity"></div></div></a><a href="cart.html" class="text-primary view-cart">View Cart</a>
-                  <div aria-labelledby="cartdetails" class="dropdown-menu">
-                 
-                      <div class="dropdown-item cart-product">
-                        <div class="d-flex align-items-center">
-                             <div class="text">Cart is empty</div>
-                        </div>
-                      </div> 
-                      
+              <div class="cart dropdown show"><a id="cartdetails" href="https://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" onclick="logCartItems()"><i class="icon-cart"></i>
+                  <div class="cart-no simpleCart_quantity"></div></a><a href="cart.html" class="text-primary view-cart">View Cart</a>
+                <div aria-labelledby="cartdetails" class="dropdown-menu">
+                  <!-- cart item-->
+                  <div class="dropdown-item cart-product">
+                   
+                       <div id="replace-cart-dropdown"></div>
+                    
+                  </div>
+                  <!-- total price-->
+                  <div class="dropdown-item total-price d-flex justify-content-between"><span>Total</span><strong class="text-primary simpleCart_total"></strong></div>
+                  <!-- call to actions-->
+                  <div class="dropdown-item CTA d-flex"><a href="cart.html" class="btn btn-template wide">View Cart</a><a href="checkout1.html" class="btn btn-template wide">Checkout</a></div>
                 </div>
-                  
-                
               </div>
             </div>
           </div>
