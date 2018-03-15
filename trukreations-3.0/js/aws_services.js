@@ -659,14 +659,14 @@ function viewItemDetailModal(itemId, modal) {
                                 
                                  if(item.sale_price > 0) {
                                      itemPriceHtml = [
-                                         '<li id="id_itemDetailSalePrice" class="list-inline-item price current">',
+                                         '<li id="id_itemDetailSalePrice" class="list-inline-item price current item_price">',
                                         '$' +item.sale_price + '</li>',
                                     '<li id="id_itemDetailPrice" class="list-inline-item price original">',
                                     '$' + item.price +'</li>'     
                                          ]
                                  } else {
                                      itemPriceHtml = [
-                                         '<li id="id_itemDetailPrice" class="list-inline-item price current">',
+                                         '<li id="id_itemDetailPrice" class="list-inline-item price current item_price">',
                                     '$' + item.price +'</li>'  
                                         ]
                                  }
