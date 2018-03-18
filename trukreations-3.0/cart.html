@@ -205,20 +205,9 @@
                 <p>If you have a coupon code, please enter it in the box below</p>
                 <form action="#">
                   <div class="form-group d-flex">
-                    <input type="text" name="coupon">
-                    <button type="submit">Apply Comment</button>
+                    <input type="text" name="coupon" id="checkoutCoupon">
+                      <button type="button" onclick="applyCouponDiscount(document.getElementById('checkoutCoupon').value)">Apply Coupon</button>
                   </div>
-                </form>
-              </div>
-            </div>
-            <div class="block">
-              <div class="block-header">
-                <h6 class="text-uppercase">Instructions for seller</h6>
-              </div>
-              <div class="block-body">
-                <p>If you have some information for the seller you can leave them in the box below</p>
-                <form action="#">
-                  <textarea name="instructions"></textarea>
                 </form>
               </div>
             </div>
@@ -231,10 +220,11 @@
               <div class="block-body">
                 <p>Shipping and additional costs are calculated based on values you have entered.</p>
                 <ul class="order-menu list-unstyled">
-                  <li class="d-flex justify-content-between"><span>Order Subtotal </span><div id="order-sub-total"><strong>$390.00</strong></div></li>
-                  <li class="d-flex justify-content-between"><span>Shipping and handling</span><strong>$10.00</strong></li>
+                  <li class="d-flex justify-content-between"><span>Order Subtotal </span><div id="order-sub-total"><strong>$0.00</strong></div></li>
+                  <li class="d-flex justify-content-between"><span>Shipping and handling</span><div id="order-shipping"><strong>$0.00</strong></div></li>
                   <li class="d-flex justify-content-between"><span>Tax</span><strong>$0.00</strong></li>
-                    <li class="d-flex justify-content-between"><span>Total</span><div id="order-total"><strong class="text-primary price-total">$400.00</strong></div></li>
+                   <li class="d-flex justify-content-between"><span>Discount</span><div id="order-discount"><strong>$0.00</strong></div></li>
+                    <li class="d-flex justify-content-between"><span>Total</span><div id="order-total"><strong class="text-primary price-total">$0.00</strong></div></li>
                 </ul>
               </div>
             </div>
@@ -285,6 +275,7 @@
           //logCartItems();
          $(document).ready(function(){
                 showCheckoutCartDetail();
+                updateOrderSummary();
              
                 $('.dec-btn').click(function () {
                     console.log("clicked dec-btn");

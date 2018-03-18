@@ -431,6 +431,7 @@ function scItemDelete(itemId) {
         elem.parentNode.removeChild(elem);
     
     simpleCart.delete(itemId);
+    updateOrderSummary();
 
 }
 
@@ -560,6 +561,77 @@ function updateCartItemQuantity(item,delta) {
     var orderTotalSel = "#" + "order-total"
      $(orderTotalSel).html(htmlOrderTotal);
 
+    
+}
+
+
+function updateOrderSummary() {
+    
+    console.log("updateOrderSummary");
+   
+    var orderSubTotal = simpleCart.total();
+    var orderShippingAmt = 0;
+    
+    if(orderSubTotal > 0) {
+        orderShippingAmt = 10;
+    }
+    else {
+        orderShippingAmt = 0;
+        
+        var htmlOrderDiscount = "<strong>$0"  + "</strong>";
+        var selOrderDiscount = "#" + "order-discount";
+        $(selOrderDiscount).html(htmlOrderDiscount);
+    }
+    
+    var htmlOrderShipping = "<strong>$" +orderShippingAmt + "</strong>";
+    var orderShippingSel = "#" + "order-shipping"
+    $(orderShippingSel).html(htmlOrderShipping);
+    
+     
+        
+    
+    
+    var orderTotal = orderSubTotal + orderShippingAmt; 
+    console.log("orderSubtotal:" +orderSubTotal);
+    
+     var htmlOrderSubTotal = "<strong>$" +orderSubTotal + "</strong>";
+     var htmlOrderTotal = '<strong class="text-primary price-total">$' + orderTotal+ "</strong>";
+    
+    var orderSubTotalSel = "#" + "order-sub-total"
+    $(orderSubTotalSel).html(htmlOrderSubTotal);
+    var orderTotalSel = "#" + "order-total"
+     $(orderTotalSel).html(htmlOrderTotal);
+
+    
+}
+
+
+function applyCouponDiscount(couponVal) {
+    
+   // var coupon = document.getElementById('checkoutCoupon').value;
+    var coupon = couponVal;
+    
+    console.log("coupon:" +coupon);
+    
+    if(coupon != null && coupon == "TRUKREATIONS" )  {
+    
+     console.log("applyCouponDiscount");
+     var orderSubTotal = simpleCart.total();
+    
+     var htmlOrderDiscount = "<strong>$10"  + "</strong>";
+    
+    var selOrderDiscount = "#" + "order-discount";
+     $(selOrderDiscount).html(htmlOrderDiscount);
+    
+     var htmlOrderTotal = '<strong class="text-primary price-total">$' + orderSubTotal+ "</strong>";
+    
+     var orderTotalSel = "#" + "order-total"
+     $(orderTotalSel).html(htmlOrderTotal);
+        
+    }
+    else {
+        console.log("no match coupon:" +coupon);
+    }
     
 }
 
