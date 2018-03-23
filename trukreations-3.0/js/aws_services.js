@@ -169,6 +169,7 @@ function queryInventoryItems(in_catg,replaceElementId, featured) {
                               '<div class="title"><small class="text-muted">' + element.short_desc +'</small><a href="detail.html">',
                                   '<h3 class="h6 text-uppercase no-margin-bottom">' + '<div class="item_name">' + element.title +'</div>' +'</h3></a>',
                                     priceLine + '</div>',
+                                  '<input type="hidden" id="' +element.item_id + '_qoh" ' + ' value="' +element.quantity_on_hand +'" />',
                             '</div>',
                           '</div>',
                     ]

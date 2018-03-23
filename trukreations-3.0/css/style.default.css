@@ -4983,6 +4983,17 @@ section.product-details .price .original {
   text-decoration: line-through;
 }
 
+section.category-products .price .original {
+  font-weight: 300;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+section.category-products .price .current {
+  font-weight: 700;
+  color: #9055A2;
+}
+
 
 
 section.featured-collection .price .original {

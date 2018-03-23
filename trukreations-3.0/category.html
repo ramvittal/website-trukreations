@@ -30,7 +30,9 @@
     <link rel="shortcut icon" href="img/favicon.ico">
     <!-- Modernizr-->
     <script src="js/modernizr.custom.79639.js"></script>
-     <script src="js/simpleCart.js"></script>
+    <!-- Bootstrap CSS -->
+      
+      <script src="js/simpleCart.js"></script>
         <script>
             simpleCart({
                 checkout: { 
@@ -41,10 +43,10 @@
             
           
         </script>
-     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
      <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
     <script src="js/aws_services.js"></script>
-    
   </head>
   <body>
     <!-- navbar-->
@@ -170,25 +172,29 @@
           </div>
           <!-- /Sidebar end-->
           <!-- Grid -->
-          <div class="products-grid col-xl-9 col-lg-8 sidebar-left">
            
-            
-            
-            <div class="row" id="replace-sarees">
-              <!-- items-->
+              <div class="products-grid col-xl-9 col-lg-8 sidebar-left">
               
-              
-            </div> 
-            <script type="text/javascript">
-                
-                queryInventoryItems('sarees/art-silk',"replace-sarees");
+              <section class="category-products">
+
+
+
+                <div class="row" id="replace-sarees">
+                  <!-- items-->
+
+
+                </div> 
+                <script type="text/javascript">
+
+                    queryInventoryItems('sarees/art-silk',"replace-sarees", 'false');
+
+
+                 </script>
+
+                </section>
+
+               </div>
             
-                
-             </script>
-             
-              
-         
-          </div>
           <!-- / Grid End-->
         </div>
       </div>
@@ -284,6 +290,9 @@
     
     
     <!-- Javascript files-->
+   
+   
+   <!-- Javascript files-->
    
    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"> </script>
