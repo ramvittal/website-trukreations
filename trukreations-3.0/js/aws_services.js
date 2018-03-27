@@ -157,11 +157,11 @@ function queryInventoryItems(in_catg,replaceElementId, featured) {
                             '<div class="product is-gray">',
                               '<div class="image d-flex align-items-center justify-content-center">',
                                 saleTag,
-                        '<img id="' +element.item_id + '" ' + 'src="' + bucketUrl + element.item_image_url + '" alt="product" class="img-fluid item_imageurl">',
+                        '<img id="' +element.item_id + '_img" ' + 'src="' + bucketUrl + element.item_image_url + '" alt="product" class="img-fluid item_imageurl">',
                                 '<div class="hover-overlay d-flex align-items-center justify-content-center">',
-                                  '<div class="CTA d-flex align-items-center justify-content-center"><a href="#" class="add-to-cart item_add"><i class="fa fa-shopping-cart"></i></a>',
+                                  '<div class="CTA d-flex align-items-center justify-content-center"><a id="' +element.item_id + '"' + ' href="#" onclick="checkItemQoh(this)" class="add-to-cart item_add"><i class="fa fa-shopping-cart"></i></a>',
                                         '<a href="detail.html?itemId=' +element.item_id + '" class="visit-product active"><i class="icon-search"></i>View</a>',
-                                        '<a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="' +element.item_id + '"',
+                                        '<a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="' +element.item_id + '_"',
                                     ' class="quick-view"><i class="fa fa-arrows-alt"></i></a>',
                                     '</div>',
                                 '</div>',
@@ -174,27 +174,7 @@ function queryInventoryItems(in_catg,replaceElementId, featured) {
                           '</div>',
                     ]
                     
-                    /*
                     
-                    html =  [ 
-                        '<div class="col-sm-3">',
-                          '<div class="card simpleCart_shelfItem">',
-                                '<div class="card-block" style="text-align:center;font-size:20px;">',
-                                    
-                                    '<span class="card-title">' + element.title +  '</span>',
-                                    '<p hidden class="item_name">'  + element.title +  '</p>',
-                                    
-                                '</div>',
-                                '<img id="' +element.item_id + '" ' + 'src="' + bucketUrl + element.item_image_url + '"  onclick="displayItemDetail(this)">',
-                                '<div class="card-block" style="font-size:12px;">',
-                                    '<p id="' +element.item_id + '-desc"' + 'class="card-text">' + element.short_desc + '. Item# <span class="item_number">' + element.item_id +  '</span>&nbsp; </p>',
-                                    '<p id="' +element.item_id + '-price"' + 'class="card-text"><span class="item_price" style="color:red">$' + element.price +  '</span>&nbsp;&nbsp;<button id="' +element.item_id + '-addcart"' + ' class="btn btn-success item_add" style="font-size:12px;">Add to Cart</button></p>',
-                                '</div>',
-                            '</div>',
-                        '</div>']
-                        
-                        
-                    */
                     
                     htmlArray[i] = html.join("");
                     i = i +1;
@@ -216,6 +196,33 @@ function evalAddCartDisable(element, itemQoh) {
     
 }
 
+function checkItemQoh(item) {
+    console.log("checkItemQoh:" +item.id);
+    var itemId = item.id;
+    //document.getElementById("myText").value 
+    var itemQoh = document.getElementById(itemId +"_qoh").value;
+    console.log("qoh:" +itemQoh);
+    if(itemQoh > 0) {
+        
+        var qoh = itemQoh -1;
+        document.getElementById(itemId +"_qoh").value = qoh;
+        
+        if(qoh == 0) {
+           // document.getElementById(item.id).className = "add-to-cart";
+            console.log('qoh = 0');
+           // window.alert("Selected item is Out Of Stock");
+            
+        }
+        
+    } else {
+        document.getElementById(item.id).className = "add-to-cart";
+        window.alert("Selected item is Out Of Stock");
+    }
+    
+   
+    
+    
+}
 
 function enableAllAddCartButtons() {
     
